@@ -29,7 +29,7 @@
 	{if empty($smarty.get.get)}
 		<h1>Список команд</h1>
 
-			<table width="80%" cellspacing="0" cellpadding="0" border="0" id="teams_table">
+			<table width="80%" cellspacing="0" cellpadding="0" border="0" id="teams_table" style="margin: 0 auto;">
 			<tr>
 				<td align="center" colspan="6">
 					<input type="text" id="team_search" placeholder="Поиск по названию..." style="width: 300px; padding: 5px; margin-bottom: 10px; font-size: 14px;" onkeyup="filterTeams()">
@@ -59,7 +59,7 @@
 			{if $team_list}
 			{foreach key=key item=item from=$team_list name=team}
 				<tr onmouseover="javascript: this.style.background = '#eee'" onmouseout="javascript: this.style.background = ''">
-					<td><a href="?show=team&get=edit&item={$item.t_id}">{if $item.t_title_ru == ''}<span style="color: #f00;">Без названия</span>{else}{$item.t_title_ru}{/if}</a>{if $item.t_is_technical == 'yes'} (тех.){/if}</td>
+					<td style="padding-left: 10px;"><a href="?show=team&get=edit&item={$item.t_id}">{if $item.t_title_ru == ''}<span style="color: #f00;">Без названия</span>{else}{$item.t_title_ru}{/if}</a>{if $item.t_is_technical == 'yes'} (тех.){/if}</td>
 					<td><a href="?show=team&get=edit&item={$item.t_id}">{$item.t_filter}</a></td>
 					<td>{if !empty($item.logo)}<img src="{$item.logo}" alt="" border="0" style="max-width: 30px; max-height: 30px;">{/if}</td>
 					<td>{if !empty($item.t_is_detailed) && $item.t_is_detailed == 'yes'}<img src="images/menu_yes.gif" alt="подробно" border="0">{else}<img src="images/menu_no.gif" alt="коротко" border="0">{/if}</td>
