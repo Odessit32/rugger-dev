@@ -199,7 +199,7 @@ class games{
     }
 
     public function addGameAction($post){
-        $ga_zst_id = $ga_zapp_id = '';
+        $ga_zst_id = $ga_zapp_id = 0;
         switch ($post['a_id']) {
             case 'zam_out':
                 $type = $post['a_id'];
