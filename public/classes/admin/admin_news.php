@@ -54,6 +54,21 @@ class news extends adminBase{
         }
         $search = array("'", '"');
         $replace = array('&quot;', '&quot;');
+
+        // Обрабатываем связанные новости "Читайте также"
+        $n_related_news = '';
+        if (isset($post['related_news_id']) && is_array($post['related_news_id'])) {
+            $related_ids = array();
+            foreach ($post['related_news_id'] as $idx => $rel_id) {
+                if (!empty($rel_id)) {
+                    $related_ids[$idx] = intval($rel_id);
+                }
+            }
+            if (!empty($related_ids)) {
+                $n_related_news = json_encode($related_ids, JSON_UNESCAPED_UNICODE);
+            }
+        }
+
         $elem = array(
             (strlen(trim(html_entity_decode(strip_tags($post['n_title_ru']))))>0) ? str_replace($search, $replace, $post['n_title_ru']) : '',
             (strlen(trim(html_entity_decode(strip_tags($post['n_title_ua']))))>0) ? str_replace($search, $replace, $post['n_title_ua']) : '',
@@ -77,7 +92,7 @@ class news extends adminBase{
             '',    // n_export_id
             str_replace($search, $replace, $post['n_sign']),
             $post['n_top'],
-            '',  // n_related_news (пустой при создании)
+            $n_related_news,  // n_related_news
             $n_is_photo_top,
             addslashes($post['n_sign_url']),
         );
