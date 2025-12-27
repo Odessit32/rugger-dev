@@ -48,6 +48,7 @@ class games{
         $g_id = intval($g_id);
         $res = array();
         $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games","*","g_id = '$g_id' LIMIT 1");
+        if (!$res_temp || !isset($res_temp[0])) return $res;
         $team_temp = $res_temp[0];
         /*
         if ($team_temp['g_is_done'] == 'no'){
@@ -63,23 +64,27 @@ class games{
         }
         */
         // хозяева
-        if ($team_temp['g_owner_t_id']>0) $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions","*","ga_g_id = '$g_id'
-								AND ga_t_id = '".$team_temp['g_owner_t_id']."' 
-								AND ga_is_delete = 'no' 
-								ORDER BY ga_st_id ASC, 
+        if (!empty($team_temp['g_owner_t_id']) && $team_temp['g_owner_t_id']>0) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions","*","ga_g_id = '$g_id'
+								AND ga_t_id = '".$team_temp['g_owner_t_id']."'
+								AND ga_is_delete = 'no'
+								ORDER BY ga_st_id ASC,
 										ga_min ASC");
-        if ($res_temp)
-            foreach ($res_temp as $item)
-                $res['owner'][$item['ga_st_id']][$item['ga_type']][] = array("ga_min" => $item['ga_min'], "ga_id" => $item['ga_id']);
+            if ($res_temp)
+                foreach ($res_temp as $item)
+                    $res['owner'][$item['ga_st_id']][$item['ga_type']][] = array("ga_min" => $item['ga_min'], "ga_id" => $item['ga_id']);
+        }
         // гости
-        if ($team_temp['g_guest_t_id']>0) $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions","*","ga_g_id = '$g_id'
-								AND ga_t_id = '".$team_temp['g_guest_t_id']."' 
-								AND ga_is_delete = 'no' 
-								ORDER BY ga_st_id ASC, 
+        if (!empty($team_temp['g_guest_t_id']) && $team_temp['g_guest_t_id']>0) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions","*","ga_g_id = '$g_id'
+								AND ga_t_id = '".$team_temp['g_guest_t_id']."'
+								AND ga_is_delete = 'no'
+								ORDER BY ga_st_id ASC,
 										ga_min ASC");
-        if ($res_temp) {
-            foreach ($res_temp as $item) {
-                $res['guest'][$item['ga_st_id']][$item['ga_type']][] = array("ga_min" => $item['ga_min'], "ga_id" => $item['ga_id']);
+            if ($res_temp) {
+                foreach ($res_temp as $item) {
+                    $res['guest'][$item['ga_st_id']][$item['ga_type']][] = array("ga_min" => $item['ga_min'], "ga_id" => $item['ga_id']);
+                }
             }
         }
         return $res;
@@ -102,7 +107,7 @@ class games{
                     $elems = array(
                         "ga_min" => intval($post['min']),
                         "ga_date_add" => 'NOW()',
-                        "ga_add_author" => USER_ID
+                        "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                     );
                     $condition = array(
                         "ga_id"=>intval($post['ga_id'])
@@ -115,7 +120,7 @@ class games{
                     $elems = array(
                         "ga_is_delete" => 'yes',
                         "ga_date_add" => 'NOW()',
-                        "ga_add_author" => USER_ID
+                        "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                     );
                     $condition = array(
                         "ga_id"=>intval($post['ga_id'])
@@ -130,7 +135,7 @@ class games{
                     $elems = array(
                         "ga_min" => intval($post['min']),
                         "ga_date_add" => 'NOW()',
-                        "ga_add_author" => USER_ID
+                        "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                     );
                     $condition = array(
                         "ga_id"=>intval($post['ga_id']),
@@ -140,7 +145,7 @@ class games{
                         $elems = array(
                             "ga_min" => intval($post['min']),
                             "ga_date_add" => 'NOW()',
-                            "ga_add_author" => USER_ID
+                            "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                         );
                         $condition = array(
                             "ga_zst_id" => $item_temp[0]['ga_st_id'],
@@ -156,7 +161,7 @@ class games{
                     $elems = array(
                         "ga_is_delete" => 'yes',
                         "ga_date_add" => 'NOW()',
-                        "ga_add_author" => USER_ID
+                        "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                     );
                     $condition = array(
                         "ga_id"=>intval($post['ga_id']),
@@ -168,7 +173,7 @@ class games{
                             $elems = array(
                                 "ga_is_delete" => 'yes',
                                 "ga_date_add" => 'NOW()',
-                                "ga_add_author" => USER_ID
+                                "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                             );
                             $condition = array(
                                 "ga_st_id" => $item_temp_del[0]['ga_st_id'],
@@ -184,7 +189,7 @@ class games{
                 $elems = array(
                     "ga_st_id" => intval($post['st_id']),
                     "ga_date_add" => 'NOW()',
-                    "ga_add_author" => USER_ID
+                    "ga_add_author" => (defined('USER_ID') ? USER_ID : 0)
                 );
                 $condition = array(
                     "ga_st_id" => $item_temp[0]['ga_st_id'],
@@ -235,20 +240,25 @@ class games{
         if (intval($post['g_id']) <1) return false;
         if (intval($post['t_id']) <1) return false;
         if (intval($post['st_id']) <1) return false;
-        $elem = array(
-            intval($post['g_id']),
-            intval($post['t_id']),
-            intval($post['st_id']),
-            $type,
-            intval($post['min']),
-            'NOW()',
-            USER_ID,
-            'no',
-            $ga_zst_id,
-            $ga_zapp_id
-        );
-        if ($this->hdl->addElem(DB_T_PREFIX."games_actions", $elem)) {
-            if ($type == 'pop' or  $type == 'sht' or $type == 'pez' or $type == 'd_g') $this->updatePointsGame($post['g_id']);
+
+        // Use INSERT IGNORE to prevent duplicates (unique index on ga_g_id, ga_t_id, ga_st_id, ga_type, ga_min, ga_zst_id)
+        $sql = "INSERT IGNORE INTO ".DB_T_PREFIX."games_actions
+                (ga_g_id, ga_t_id, ga_st_id, ga_type, ga_min, ga_date_add, ga_add_author, ga_is_delete, ga_zst_id, ga_zapp_id)
+                VALUES (
+                    ".intval($post['g_id']).",
+                    ".intval($post['t_id']).",
+                    ".intval($post['st_id']).",
+                    '".$type."',
+                    ".intval($post['min']).",
+                    NOW(),
+                    ".(defined('USER_ID') ? USER_ID : 0).",
+                    'no',
+                    ".$ga_zst_id.",
+                    ".$ga_zapp_id."
+                )";
+
+        if ($this->hdl->query($sql)) {
+            if ($type == 'pop' or $type == 'sht' or $type == 'pez' or $type == 'd_g') $this->updatePointsGame($post['g_id']);
             return true;
         } else return false;
     }
@@ -342,111 +352,132 @@ class games{
     public function getGamesTeamStaff($g_id){
         $q_extra = '';
         $g_id = intval($g_id);
+        $res = array();
         $res_temp_z = array();
         $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games","*","g_id = '$g_id' LIMIT 1");
+        if (!$res_temp || !isset($res_temp[0])) return $res;
         $team_temp = $res_temp[0];
         // хозяева основной состав
-        if ($team_temp['g_owner_t_id']>0) $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
-								AND cngst_t_id = '".$team_temp['g_owner_t_id']."' 
-								AND cngst_st_id = st_id 
-								AND cngst_app_id = app_id 
-								AND cngst_is_delete = 'no' 
+        if (!empty($team_temp['g_owner_t_id']) && $team_temp['g_owner_t_id']>0) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
+								AND cngst_t_id = '".$team_temp['g_owner_t_id']."'
+								AND cngst_st_id = st_id
+								AND cngst_app_id = app_id
+								AND cngst_is_delete = 'no'
 								AND app_type = 'player'
 								AND cngst_type = 'main'
-								ORDER BY app_order DESC, 
-										st_family_ru ASC, 
-										st_name_ru ASC, 
+								ORDER BY app_order DESC,
+										st_family_ru ASC,
+										st_name_ru ASC,
 										st_surname_ru ASC");
+        } else {
+            $res_temp = false;
+        }
         $res['owner']['main'] = $res_temp;
         // хозяева замена
-        $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","ga_g_id = '$g_id'
-								AND ga_t_id = '".$team_temp['g_owner_t_id']."' 
-								AND ga_type = 'zam_in'
-								AND ga_st_id = st_id 
-								AND ga_zapp_id = app_id 
-								AND ga_is_delete = 'no' 
-								AND app_type = 'player'
-								ORDER BY app_order DESC, 
-										st_family_ru ASC, 
-										st_name_ru ASC, 
-										st_surname_ru ASC");
         $res_temp_z = array();
-        if ($res_temp) foreach ($res_temp as $item)
-            $res_temp_z[$item['ga_zst_id']] = $item;
+        if (!empty($team_temp['g_owner_t_id'])) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","ga_g_id = '$g_id'
+								AND ga_t_id = '".$team_temp['g_owner_t_id']."'
+								AND ga_type = 'zam_in'
+								AND ga_st_id = st_id
+								AND ga_zapp_id = app_id
+								AND ga_is_delete = 'no'
+								AND app_type = 'player'
+								ORDER BY app_order DESC,
+										st_family_ru ASC,
+										st_name_ru ASC,
+										st_surname_ru ASC");
+            if ($res_temp) foreach ($res_temp as $item)
+                $res_temp_z[$item['ga_zst_id']] = $item;
+        }
         $res['owner']['zam'] = $res_temp_z;
         unset($res_temp_z);
         // хозяева остальные игроки на замену
-        if ($res['owner']['main'])
+        if (!empty($res['owner']['main']))
             foreach ($res['owner']['main'] as $item)
                 $q_extra .= "AND cngst_st_id != '".$item['st_id']."' ";
-        if ($res['owner']['zam'])
+        if (!empty($res['owner']['zam']))
             foreach ($res['owner']['zam'] as $item)
                 $q_extra .= "AND cngst_st_id != '".$item['st_id']."' ";
-        $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
-								AND cngst_t_id = '".$team_temp['g_owner_t_id']."' 
-								AND cngst_st_id = st_id 
-								AND cngst_app_id = app_id 
-								AND cngst_is_delete = 'no' 
+        if (!empty($team_temp['g_owner_t_id'])) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
+								AND cngst_t_id = '".$team_temp['g_owner_t_id']."'
+								AND cngst_st_id = st_id
+								AND cngst_app_id = app_id
+								AND cngst_is_delete = 'no'
 								AND app_type = 'player'
 								AND cngst_type = 'reserve'
 								$q_extra
 								ORDER BY app_order DESC,
-										st_family_ru ASC, 
-										st_name_ru ASC, 
+										st_family_ru ASC,
+										st_name_ru ASC,
 										st_surname_ru ASC");
+        } else {
+            $res_temp = false;
+        }
         $res['owner']['reserve'] = $res_temp;
         $q_extra = '';
         // гости основной состав
-        if ($team_temp['g_guest_t_id']>0) $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
-								AND cngst_t_id = '".$team_temp['g_guest_t_id']."' 
-								AND cngst_st_id = st_id 
-								AND cngst_app_id = app_id 
-								AND cngst_is_delete = 'no' 
+        if (!empty($team_temp['g_guest_t_id']) && $team_temp['g_guest_t_id']>0) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
+								AND cngst_t_id = '".$team_temp['g_guest_t_id']."'
+								AND cngst_st_id = st_id
+								AND cngst_app_id = app_id
+								AND cngst_is_delete = 'no'
 								AND app_type = 'player'
 								AND cngst_type = 'main'
 								ORDER BY app_order DESC,
-										st_family_ru ASC, 
-										st_name_ru ASC, 
+										st_family_ru ASC,
+										st_name_ru ASC,
 										st_surname_ru ASC");
+        } else {
+            $res_temp = false;
+        }
         $res['guest']['main'] = $res_temp;
-        // хозяева замена
-        $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","ga_g_id = '$g_id'
-								AND ga_t_id = '".$team_temp['g_guest_t_id']."' 
+        // гости замена
+        $res_temp_z = array();
+        if (!empty($team_temp['g_guest_t_id'])) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."games_actions, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","ga_g_id = '$g_id'
+								AND ga_t_id = '".$team_temp['g_guest_t_id']."'
 								AND ga_type = 'zam_in'
-								AND ga_st_id = st_id 
-								AND ga_zapp_id = app_id 
-								AND ga_is_delete = 'no' 
+								AND ga_st_id = st_id
+								AND ga_zapp_id = app_id
+								AND ga_is_delete = 'no'
 								AND app_type = 'player'
 								ORDER BY app_order DESC,
-										st_family_ru ASC, 
-										st_name_ru ASC, 
+										st_family_ru ASC,
+										st_name_ru ASC,
 										st_surname_ru ASC");
-        $res_temp_z = array();
-        if ($res_temp) foreach ($res_temp as $item)
-            $res_temp_z[$item['ga_zst_id']] = $item;
+            if ($res_temp) foreach ($res_temp as $item)
+                $res_temp_z[$item['ga_zst_id']] = $item;
+        }
         $res['guest']['zam'] = $res_temp_z;
         unset($res_temp_z);
         // гости остальные игроки на замену
-        if ($res['guest']['main'])
+        if (!empty($res['guest']['main']))
             foreach ($res['guest']['main'] as $item)
                 $q_extra .= "AND cngst_st_id != '".$item['st_id']."' ";
-        //echo $q_extra;
-        if ($res['guest']['zam'])
+        if (!empty($res['guest']['zam']))
             foreach ($res['guest']['zam'] as $item)
                 $q_extra .= "AND cngst_st_id != '".$item['st_id']."' ";
 
-        $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
-								AND cngst_t_id = '".$team_temp['g_guest_t_id']."' 
-								AND cngst_st_id = st_id 
-								AND cngst_app_id = app_id 
-								AND cngst_is_delete = 'no' 
+        if (!empty($team_temp['g_guest_t_id'])) {
+            $res_temp = $this->hdl->selectElem(DB_T_PREFIX."connection_g_st, ".DB_T_PREFIX."staff, ".DB_T_PREFIX."team_appointment","*","cngst_g_id = '$g_id'
+								AND cngst_t_id = '".$team_temp['g_guest_t_id']."'
+								AND cngst_st_id = st_id
+								AND cngst_app_id = app_id
+								AND cngst_is_delete = 'no'
 								AND app_type = 'player'
 								AND cngst_type = 'reserve'
 								$q_extra
 								ORDER BY app_order DESC,
-										st_family_ru ASC, 
-										st_name_ru ASC, 
+										st_family_ru ASC,
+										st_name_ru ASC,
 										st_surname_ru ASC");
+        } else {
+            $res_temp = false;
+        }
         $res['guest']['reserve'] = $res_temp;
         return $res;
     }
@@ -474,7 +505,7 @@ class games{
             "g_is_active" => $is_active,
             "g_is_schedule_time" => $is_time,
             "g_datetime_edit" => 'NOW()',
-            "g_author" => USER_ID,
+            "g_author" => (defined('USER_ID') ? USER_ID : 0),
             "g_date_schedule" => $g_date_schedule
         );
         $condition = array(
@@ -626,7 +657,7 @@ class games{
                 }
                 $elems = array(
                     "g_datetime_edit" => 'NOW()',
-                    "g_author" => USER_ID,
+                    "g_author" => (defined('USER_ID') ? USER_ID : 0),
                     "g_is_done" => 'yes'
                 );
                 if ($game_temp['g_done_datetime'] == '0000-00-00 00:00:00') $elems['g_done_datetime'] = 'NOW()';
@@ -651,7 +682,7 @@ class games{
                 $game_temp = $game_temp[0];
                 $elems = array(
                     "g_datetime_edit" => 'NOW()',
-                    "g_author" => USER_ID,
+                    "g_author" => (defined('USER_ID') ? USER_ID : 0),
                     "g_is_done" => 'no'
                 );
                 $condition = array(
@@ -672,7 +703,7 @@ class games{
             if (!$games_temp){
                 $elems = array(
                     "cp_datetime_edit" => 'NOW()',
-                    "cp_author" => USER_ID,
+                    "cp_author" => (defined('USER_ID') ? USER_ID : 0),
                     "cp_is_done" => 'yes'
                 );
                 $condition = array(
@@ -753,7 +784,7 @@ class games{
                                     if ($cp == $id and $team[$n_p]['t_id']>0){
                                         $elems = array(
                                             "g_datetime_edit" => 'NOW()',
-                                            "g_author" => USER_ID,
+                                            "g_author" => (defined('USER_ID') ? USER_ID : 0),
                                             "g_owner_t_id" => $team[$n_p]['t_id']
                                         );
                                         $condition = array( "g_id"=>$item['g_id'] );
@@ -765,7 +796,7 @@ class games{
                                     if ($cp == $id and $team[$n_p]['t_id']>0){
                                         $elems = array(
                                             "g_datetime_edit" => 'NOW()',
-                                            "g_author" => USER_ID,
+                                            "g_author" => (defined('USER_ID') ? USER_ID : 0),
                                             "g_guest_t_id" => $team[$n_p]['t_id']
                                         );
                                         $condition = array( "g_id"=>$item['g_id'] );
@@ -798,7 +829,7 @@ class games{
             $g_info['actions'] = (!empty($post['g_info']['actions']))?$post['g_info']['actions']:array();
             $elems = array(
                 "g_datetime_edit" => 'NOW()',
-                "g_author" => USER_ID,
+                "g_author" => (defined('USER_ID') ? USER_ID : 0),
                 "g_owner_points" => intval($post['g_owner_points']),
                 "g_guest_points" => intval($post['g_guest_points']),
                 "g_owner_ft_points" => intval($post['g_owner_ft_points']),
@@ -826,7 +857,7 @@ class games{
         if ($temp){
             $elems = array(
                 "g_datetime_edit" => 'NOW()',
-                "g_author" => USER_ID,
+                "g_author" => (defined('USER_ID') ? USER_ID : 0),
                 "g_owner_extra_points" => intval($post['g_owner_extra_points']),
                 "g_guest_extra_points" => intval($post['g_guest_extra_points']),
                 "g_ft_time" => intval($post['g_ft_time'])
@@ -863,7 +894,7 @@ class games{
                 }
                 $elems = array(
                     "g_datetime_edit" => 'NOW()',
-                    "g_author" => USER_ID,
+                    "g_author" => (defined('USER_ID') ? USER_ID : 0),
                     "g_info" => json_encode($g_info, JSON_UNESCAPED_UNICODE )
                 );
                 $condition = array(

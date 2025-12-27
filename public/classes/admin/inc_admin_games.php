@@ -23,15 +23,7 @@ if(!empty($_POST['clear_report'])){
     else $smarty->assign("error_message", 'Отчет не очищен');
 }
 
-if(!empty($_POST['add_g_action'])){
-    if ($games->addGameAction($_POST)) $smarty->assign("ok_message", 'Отчет обновлен');
-    else $smarty->assign("error_message", 'Отчет не обновлен');
-}
-
-if(!empty($_POST['edit_g_action'])){
-    if ($games->editGameAction($_POST)) $smarty->assign("ok_message", 'Отчет обновлен');
-    else $smarty->assign("error_message", 'Отчет не обновлен');
-}
+// add_g_action and edit_g_action are handled early in index.php with PRG pattern
 
 if(!empty($_POST['save_games_changes'])){
     if ($games->updateGames($_POST)) $smarty->assign("ok_message", 'Игра обновлена');
@@ -79,8 +71,13 @@ $smarty->assign("championship_list", $games->getChampionshipList()); // спис
 $smarty->assign("games_list", $games->getGamesList(intval(!empty($_GET['page'])?$_GET['page']:0), 20, intval(!empty($_GET['ch'])?$_GET['ch']:0))); // список игр
 $smarty->assign("games_pages", $games->getGamesPages(intval(!empty($_GET['page'])?$_GET['page']:0), 20, intval(!empty($_GET['ch'])?$_GET['ch']:0))); // страницы
 
-$smarty->assign("g_t_staff", $games->getGamesTeamStaff(intval(!empty($_GET['item'])?$_GET['item']:0))); // список игроков для игры
-$smarty->assign("g_action", $games->getGamesAction(intval(!empty($_GET['item'])?$_GET['item']:0))); // список действий игроков для отчета
+try {
+    $smarty->assign("g_t_staff", $games->getGamesTeamStaff(intval(!empty($_GET['item'])?$_GET['item']:0))); // список игроков для игры
+    $smarty->assign("g_action", $games->getGamesAction(intval(!empty($_GET['item'])?$_GET['item']:0))); // список действий игроков для отчета
+} catch (Error $e) {
+    error_log('getGamesTeamStaff/getGamesAction Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
+    $smarty->assign("error_message", 'Ошибка загрузки данных: ' . $e->getMessage());
+}
 
 // ИГРЫ ///////// КОНЕЦ  ///////////////////////////////////////////////////////////////////
 
@@ -91,7 +88,7 @@ if(!empty($_POST['save_games_left_active_settings'])){
     $elems = array(
         "set_value" => $is_active,
         "set_datetime_edit" => 'NOW()',
-        "set_author" => USER_ID
+        "set_author" => (defined('USER_ID') ? USER_ID : 0)
     );
     $condition = array(
         "set_name" => "is_active_games_left"
@@ -105,7 +102,7 @@ if(!empty($_POST['save_games_left_count_settings'])){
     $elems = array(
         "set_value" => $_POST['cnv_value'],
         "set_datetime_edit" => 'NOW()',
-        "set_author" => USER_ID
+        "set_author" => (defined('USER_ID') ? USER_ID : 0)
     );
     $condition = array(
         "set_name" => "count_games_left"
@@ -119,7 +116,7 @@ if(!empty($_POST['save_games_count_settings'])){
     $elems = array(
         "set_value" => $_POST['cnv_value'],
         "set_datetime_edit" => 'NOW()',
-        "set_author" => USER_ID
+        "set_author" => (defined('USER_ID') ? USER_ID : 0)
     );
     $condition = array(
         "set_name" => "count_games_page"
@@ -143,7 +140,7 @@ if (!empty($_GET['get']) && $_GET['get'] == 'settings') {
         $elems = array(
             "cnv_value" => $_POST['cnv_value'],
             "cnv_datetime_edit" => 'NOW()',
-            "cnv_author" => USER_ID
+            "cnv_author" => (defined('USER_ID') ? USER_ID : 0)
         );
         if ($_POST['lang'] == 'rus') $lang = 'rus';
         if ($_POST['lang'] == 'ukr') $lang = 'ukr';

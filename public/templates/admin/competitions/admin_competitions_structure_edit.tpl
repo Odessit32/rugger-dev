@@ -452,7 +452,7 @@
 						</table>
 					</td>
 					<td width="50%" align="center" valign="middle">
-						{if $game_item.g_owner_t_id > 0 and $game_item.g_guest_t_id > 0}<a href="?show=games&get=edit&item={$game_item.g_id}{if $smarty.get.country>0}&country={$smarty.get.country}{/if}"><div style="display: block; border: 1px solid #444444; width: 150px; height: 20px; margin: -50px 0 20px 0; padding: 3px; color: #000; font-weight: bold;">{if $game_item.g_is_done == 'no'}<img src="images/document_edit.jpg" alt="отчета нет" border="0"> Написать отчет{else}<img src="images/yes.jpg" alt="отчета нет" border="0"> Посмотреть отчет{/if}</div></a>{else}Написание отчета невозможно <br>пока не определены команды.<br><br>{/if}
+						{if $game_item.g_owner_t_id > 0 and $game_item.g_guest_t_id > 0}<a href="?show=games&get=edit&item={$game_item.g_id}{if !empty($smarty.get.country)}&country={$smarty.get.country}{/if}"><div style="display: block; border: 1px solid #444444; width: 150px; height: 20px; margin: -50px 0 20px 0; padding: 3px; color: #000; font-weight: bold;">{if $game_item.g_is_done == 'no'}<img src="images/document_edit.jpg" alt="отчета нет" border="0"> Написать отчет{else}<img src="images/yes.jpg" alt="отчета нет" border="0"> Посмотреть отчет{/if}</div></a>{else}Написание отчета невозможно <br>пока не определены команды.<br><br>{/if}
 						<input type="submit" name="save_game_changes" id="submitsave" value="Сохранить">
 						{if $game_item.g_is_done == 'no'}
 						<br><br><br>

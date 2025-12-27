@@ -2,7 +2,9 @@
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+// Suppress PHP 8.0 warnings for legacy code
+error_reporting(E_ALL & ~E_DEPRECATED);
 if (!defined('ENV')) {
     define('ENV', getenv('ENV') ?: 'local');
 } /* удалить при заливке на прод*/
@@ -33,12 +35,20 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 // Smarty
+
 include_once(__DIR__.'/libs/Smarty.class.php');
 $smarty = new Smarty();
 $smarty->setTemplateDir(TEMPLATE_DIR);
 $smarty->setCompileDir(COMPILE_DIR);
 //$smarty->config_dir=array('./configs/');
 $smarty->setCacheDir(CACHE_DIR);
+$smarty->error_reporting = E_ALL & ~E_DEPRECATED;
+
+// Register modifiers for PHP 8.0+ compatibility
+$smarty->registerPlugin('modifier', 'strtolower', 'strtolower');
+$smarty->registerPlugin('modifier', 'strtoupper', 'strtoupper');
+$smarty->registerPlugin('modifier', 'count', 'count');
+$smarty->registerPlugin('modifier', 'nl2br', 'nl2br');
 // Smarty END
 
 $smarty->assign("ENV", ENV);

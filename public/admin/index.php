@@ -4,9 +4,51 @@
  * http://illi.od.ua/
  */
 
+// Start output buffering to allow redirects after output
+ob_start();
+
+// Early PRG handler for game actions to prevent duplicates on refresh
+if (!empty($_POST['add_g_action']) || !empty($_POST['edit_g_action'])) {
+    require_once('../classes/config.php');
+    require_once('../classes/DB.php');
+    require_once('../classes/admin/admin_games.php');
+
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    $games = new games();
+
+    if (!empty($_POST['add_g_action'])) {
+        $games->addGameAction($_POST);
+    } elseif (!empty($_POST['edit_g_action'])) {
+        $games->editGameAction($_POST);
+    }
+
+    // Always redirect after POST to prevent resubmission
+    $redirect_url = strtok($_SERVER['REQUEST_URI'], '?');
+    if (!empty($_SERVER['QUERY_STRING'])) {
+        $redirect_url .= '?' . $_SERVER['QUERY_STRING'];
+    }
+    header('Location: ' . $redirect_url, true, 303);
+    exit;
+}
+
 // Suppress PHP 8.0 warnings for legacy code in production
-error_reporting(E_ALL & ~E_WARNING & ~E_DEPRECATED);
-ini_set('display_errors', '0');
+// E_ALL & ~E_DEPRECATED - hide deprecated warnings from Smarty
+error_reporting(E_ALL & ~E_DEPRECATED);
+ini_set('display_errors', '1');
+ini_set('log_errors', '1');
+ini_set('error_log', '/tmp/php_errors.log');
+
+// Debug handler for fatal errors
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        file_put_contents('/tmp/php_errors.log', date('Y-m-d H:i:s') . ' FATAL: ' . print_r($error, true) . "\n", FILE_APPEND);
+        echo '<pre>FATAL ERROR: ' . htmlspecialchars(print_r($error, true)) . '</pre>';
+    }
+});
 
 include_once('../classes/config.php');
 include_once('../classes/DB.php');
@@ -20,10 +62,17 @@ $smarty->template_dir="../templates/admin";
 $smarty->compile_dir="../templates_c";
 $smarty->config_dir="../configs";
 $smarty->cache_dir="../cache";
+$smarty->error_reporting = E_ALL & ~E_DEPRECATED;
 
 // Register custom modifiers for PHP 8.0 compatibility
 $smarty->registerPlugin('modifier', 'print_r', 'smarty_modifier_print_r');
 $smarty->registerPlugin('modifier', 'gettype', 'smarty_modifier_gettype');
+$smarty->registerPlugin('modifier', 'strtolower', 'strtolower');
+$smarty->registerPlugin('modifier', 'strtoupper', 'strtoupper');
+$smarty->registerPlugin('modifier', 'count', 'count');
+$smarty->registerPlugin('modifier', 'nl2br', 'nl2br');
+$smarty->registerPlugin('modifier', 'htmlspecialchars', 'htmlspecialchars');
+$smarty->registerPlugin('modifier', 'urlencode', 'urlencode');
 
 function smarty_modifier_print_r($value) {
     return '<pre>' . htmlspecialchars(print_r($value, true)) . '</pre>';

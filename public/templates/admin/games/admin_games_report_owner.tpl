@@ -141,13 +141,13 @@
 						{/if}
 						</td>
 						<td width="50" valign="bottom">
-							{if $g_action.owner.$item_st_id.zam_in}{foreach item=item_a from=$g_action.owner.$item_st_id.zam_in}
+							{if !empty($g_action.owner.$item_st_id.zam_in)}{foreach item=item_a from=$g_action.owner.$item_st_id.zam_in}
 								{$item_a.ga_min} м.
 							{/foreach}
 							{/if}
 						</td>
 						<td width="50" valign="bottom" id="{$item_st_id}_pop_A">
-							{if $g_action.owner.$item_st_id.pop}{foreach item=item_a from=$g_action.owner.$item_st_id.pop}
+							{if !empty($g_action.owner.$item_st_id.pop)}{foreach item=item_a from=$g_action.owner.$item_st_id.pop}
 								<div id="{$item_a.ga_id}" class="edit_b"><a href="javascript: void(0);" onclick="javascript: game_action_edit({$item_a.ga_id}, {$item_a.ga_min})" >{if $item_a.ga_min > 0}{$item_a.ga_min} м.{else}+1 шт.{/if}</a></div>
 							{/foreach}{/if}
 							{if $games_item.g_is_done == 'no'}
@@ -155,7 +155,7 @@
 							{/if}
 						</td>
 						<td width="50" valign="bottom" id="{$item_st_id}_sht_A">
-							{if $g_action.owner.$item_st_id.sht}{foreach item=item_a from=$g_action.owner.$item_st_id.sht}
+							{if !empty($g_action.owner.$item_st_id.sht)}{foreach item=item_a from=$g_action.owner.$item_st_id.sht}
 								<div id="{$item_a.ga_id}" class="edit_b"><a href="javascript: void(0);" onclick="javascript: game_action_edit({$item_a.ga_id}, {$item_a.ga_min})" >{if $item_a.ga_min > 0}{$item_a.ga_min} м.{else}+1 шт.{/if}</a></div>
 							{/foreach}{/if}
 							{if $games_item.g_is_done == 'no'}
@@ -163,7 +163,7 @@
 							{/if}
 						</td>
 						<td width="50" valign="bottom" id="{$item_st_id}_pez_A">
-							{if $g_action.owner.$item_st_id.pez}{foreach item=item_a from=$g_action.owner.$item_st_id.pez}
+							{if !empty($g_action.owner.$item_st_id.pez)}{foreach item=item_a from=$g_action.owner.$item_st_id.pez}
 								<div id="{$item_a.ga_id}" class="edit_b"><a href="javascript: void(0);" onclick="javascript: game_action_edit({$item_a.ga_id}, {$item_a.ga_min})" >{if $item_a.ga_min > 0}{$item_a.ga_min} м.{else}+1 шт.{/if}</a></div>
 							{/foreach}{/if}
 							{if $games_item.g_is_done == 'no'}
@@ -171,7 +171,7 @@
 							{/if}
 						</td>
 						<td width="50" valign="bottom" id="{$item_st_id}_d_g_A">
-							{if $g_action.owner.$item_st_id.d_g}{foreach item=item_a from=$g_action.owner.$item_st_id.d_g}
+							{if !empty($g_action.owner.$item_st_id.d_g)}{foreach item=item_a from=$g_action.owner.$item_st_id.d_g}
 								<div id="{$item_a.ga_id}" class="edit_b"><a href="javascript: void(0);" onclick="javascript: game_action_edit({$item_a.ga_id}, {$item_a.ga_min})" >{if $item_a.ga_min > 0}{$item_a.ga_min} м.{else}+1 шт.{/if}</a></div>
 							{/foreach}{/if}
 							{if $games_item.g_is_done == 'no'}
@@ -179,7 +179,7 @@
 							{/if}
 						</td>
 						<td width="50" valign="bottom" id="{$item_st_id}_y_c_A">
-							{if $g_action.owner.$item_st_id.y_c}{foreach item=item_a from=$g_action.owner.$item_st_id.y_c}
+							{if !empty($g_action.owner.$item_st_id.y_c)}{foreach item=item_a from=$g_action.owner.$item_st_id.y_c}
 								<div id="{$item_a.ga_id}" class="edit_b"><a href="javascript: void(0);" onclick="javascript: game_action_edit({$item_a.ga_id}, {$item_a.ga_min})" >{if $item_a.ga_min > 0}{$item_a.ga_min} м.{else}+1 шт.{/if}</a></div>
 							{/foreach}{/if}
 							{if $games_item.g_is_done == 'no'}
@@ -187,7 +187,7 @@
 							{/if}
 						</td>
 						<td width="50" valign="bottom" id="{$item_st_id}_r_c_A">
-							{if $g_action.owner.$item_st_id.r_c}{foreach item=item_a from=$g_action.owner.$item_st_id.r_c}
+							{if !empty($g_action.owner.$item_st_id.r_c)}{foreach item=item_a from=$g_action.owner.$item_st_id.r_c}
 								<div id="{$item_a.ga_id}" class="edit_b"><a href="javascript: void(0);" onclick="javascript: game_action_edit({$item_a.ga_id}, {$item_a.ga_min})" >{if $item_a.ga_min > 0}{$item_a.ga_min} м.{else}+1 шт.{/if}</a></div>
 							{/foreach}{/if}
 							{if $games_item.g_is_done == 'no'}
