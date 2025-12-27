@@ -1,0 +1,27 @@
+FROM php:8.4-fpm
+
+RUN apt-get update && apt-get install -y \
+    unzip git libzip-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libmemcached-dev \
+    zlib1g-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-install pdo pdo_mysql mysqli zip gd \
+  && pecl install redis memcached \
+  && docker-php-ext-enable redis memcached \
+  && rm -rf /var/lib/apt/lists/*
+
+# PHP 8.4 settings
+RUN echo "memory_limit=256M" > /usr/local/etc/php/conf.d/custom.ini \
+    && echo "upload_max_filesize=64M" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "post_max_size=64M" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "max_execution_time=300" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "opcache.memory_consumption=128" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "opcache.max_accelerated_files=10000" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/custom.ini
+
+WORKDIR /var/www/html

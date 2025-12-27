@@ -1,0 +1,54 @@
+/* #matches-table, #match-table { */
+    /* width: auto; */
+/* } */
+
+#match-table input {
+    width: 50px;
+}
+
+#match-table {
+    margin: 15px
+}
+
+#match-table th, #match-table td,
+#teams-tab {
+    text-align: center;
+}
+
+#first-team-window, #second-team-window {
+    width: auto;
+    display: inline-block;
+    margin: 10px;
+}
+
+#first-team-window input, 
+#second-team-window input {
+    height: 20px;
+}
+
+#live-tab > table td, 
+#live-tab > table th,
+#live-tab > table input {
+    width: 100px;
+    text-align: center;
+    margin: 5px;
+}
+
+#live-tab > table {
+    background: #e8e7e7;
+}
+
+#live-tab > .window td {
+    width: 100px;
+/*     background: aqua; */
+}
+
+#live-tab > .window .table-caption {
+    color: red;
+}
+
+#live-tab > .window {
+/*     background: red; */
+    display: inline-block;
+    margin: 10px;
+}

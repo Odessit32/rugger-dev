@@ -1,0 +1,11 @@
+#result_text #time_center{ font-size: 15px; text-align: center; vertical-align: bottom; padding-top: 20px; }
+		
+#center{ padding: 5px 5px 5px 5px; }
+#search{ background: url(http://kredo.rugbyodessa.com/images/search_line.gif) top left no-repeat; width: 370px; height: 26px; float: right; }
+#search_forn { height: 22px; margin: 3px 0px 0px 50px; /*90*/ }
+	*HTML #photo_big{ margin-right: 6px; float: left; width: 376px; height: 250px; overflow: hidden; }
+	#photo_little{ float: left; margin: 0px; width: 89px; }
+	#photo_little IMG { margin-bottom: 7px; margin-right: 0px; float: left; }
+		*HTML #left_big_img{ float: left; margin-right: 6px; background: url(http://kredo.rugbyodessa.com/images/left_pic1.jpg); width: 376px; /*385*/ height: 249px; }
+		.left_sm_img, .left_sm_img_last{ margin-bottom: 4px; cursor: pointer; }
+		.left_sm_img_last{ margin-bottom: 0px; }

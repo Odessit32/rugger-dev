@@ -1,0 +1,316 @@
+@font-face {
+    font-family: comfortaa;
+    src: url('fonts/Comfortaa-Medium.ttf');
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0px;
+    display: flex;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    font-family: comfortaa;
+    white-space: nowrap;
+}
+
+#side-bar {
+    display: inline-block;
+/*     width: 350px; */
+    min-width: 200px;
+    min-height: 100%;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+#main-menu {
+    display: inline-block;
+    width: 50px;
+    min-height: 100%;
+/*     border: 1px solid black; */
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #0dcc0d;
+    align-items: center;
+    margin-right: 10px
+}
+
+.menu-point {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    margin: 7px auto;
+    border-radius: 50%;
+}
+
+#menu-championships {
+    background: url('images/menu/championships.png');
+    background-size: contain;
+    border-radius: 0px;
+}
+
+#menu-match-center {
+    background: url('images/menu/match-center.png');
+    background-size: contain;
+    border-radius: 0px;
+}
+
+#tournament-list .season {
+    margin-left: 15px;
+    color: gray;
+}
+
+#tournament-list .tournament {
+/*     background: tomato; */
+    margin-bottom: 10px;
+}
+
+#tournament-list .tournament * {
+    pointer-events: none;
+}
+
+#tournament-list .tournament:hover {
+    background-color: #cac9c9;
+}
+
+.tournament.active {
+    background-color: #cac9c9;
+}
+
+#search-panel input {
+    width: 140px;
+}
+
+#new-tournament {
+    color: red;
+    font-size: 20px;
+    margin: 10px 0px;
+}
+
+#content {
+    display: inline-block;
+    flex-grow: 1;
+    vertical-align: top;
+    /* height: calc(100% - 30px); */
+    /* background-color: yellow; */
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#tournament-viewer {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#new-tournament-viewer {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+
+
+.tournament .name, .tournament .season {
+    display: inline-block;
+}
+
+.bookmarks {
+    user-select: none;
+}
+
+.bookmarks .bookmark {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.bookmarks .active-bookmark {
+    background-color: #0dcc0d;
+}
+
+.slides {
+    /*     outline: 1px solid red; */
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 0px 10px 10px 10px;
+}
+
+.slide {
+    display: inline-block;
+    height: 100%;
+}
+
+.table {
+    display: table;
+}
+
+.table > * {
+    display: table-row;
+}
+
+.table > * > * {
+    display: table-cell;
+    padding: 3px;
+
+}
+
+.table input {
+    width: 100px;
+}
+
+.window {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 20px
+}
+
+.logo {
+    height: 200px;
+    width: 200px;
+    background: url('images/1345834416_Pictures.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.table-caption {
+    color: blue;
+    text-align: center;
+    border: 1px solid black;
+    border-width: 0px 0px 1px 0px;
+}
+
+.center {
+    text-align: center;
+}
+
+.btn-group .btn {
+    background-color: gray;
+    border: gray;
+}
+
+#content select {
+    width: auto;
+}
+
+#content .filters, #content .buttons {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#content .filters > * {
+    margin: 10px;
+}
+
+#content .buttons {
+    float: right;
+    margin-right: 10px;
+}
+
+#content .buttons > * {
+    display: block;
+    margin: 10px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+#period-description {
+    width: 100%;
+    text-align: center;
+    color: red;
+}
+
+#matches-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#matches-table td, #matches-table th {
+    border: 1px solid gray;
+    padding: 5px;
+    text-align: center;
+}
+
+#matches-table th {
+    text-align: center;
+}
+
+#matches-table input[type^="text"] {
+    width: 60px;
+}
+
+.tournament-cell {
+    text-align: center;
+}
+
+.table-tournament-icon {
+    height: 50px;
+    width: 50px;
+    background: url('images/1345834416_Pictures.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.score-cell > * {
+    display: inline-block;
+    text-align: center;
+}
+
+.protocol-cell {
+    background-color: orange;
+    color: white;
+}
+
+.btn-group .btn {
+    border-radius: 20px !important;
+    margin-right: 20px;
+}
+
+.new-season-step {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.simple-text {
+    display: inline-block;
+    margin-right: 40px;
+}
+
+.window-little {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
+
+#new-season-viewer {
+    display: none;
+}
+
+#common-settings-button {
+    background: url('images/side-bar/settings.png');
+    background-size: cover;
+    height: 40px;
+    width: 40px;
+}

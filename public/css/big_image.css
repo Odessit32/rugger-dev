@@ -1,0 +1,25 @@
+/* === POPUP === */
+#popup_bg { display: none; position: fixed; text-align: center; width: 100%; cursor: pointer; z-index: 99; background: #999; opacity: 0.5; filter: alpha(Opacity=50); min-height: 100%; height: auto !important; height: 100%; }
+#popup_win { z-index: 100; margin: 0; display: none; position: fixed; text-align: center; font-family: "georgia", serif; background: #fff; box-shadow: 0 2px 3px black; box-shadow: 0 2px 5px rgba(0,0,0,0.5); -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.5); -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.5); filter: progid:DXImageTransform.Microsoft.shadow(direction=90, color=#000000, strength=2); }	
+	#popup_win H5 { font-size: 24px; line-height: 24px; color: #5d0707; font-weight: normal; margin: 0 0 0 0; display: block; }
+		#popup_win H5 A { font-size: 24px; line-height: 24px; color: #0099ee; }
+	#popup_win A { color: #0099ee; font-size: 12px; line-height: 18px; font-family: Arial, sans-serif; }
+	#popup_win .space{ display: block; width: 10px; height: 33px;}
+#popup_close { display: block; text-align: right; height: 15px; width: 100%;}
+#popup_close A { display: block; width: 15px; height: 15px; margin: 0; padding: 0; background: url("images/popup_close.gif") no-repeat center center; cursor: pointer; }
+	#popup_close A:hover { background: url("images/popup_close_h.gif") no-repeat center center; }
+#popup_close A IMG { margin: 2px; }
+	
+.big_image { display: block; margin: 0; }
+	.big_image .b_next { display: block; width: 38px; float: right; text-align: center; margin: 0; padding: 0; }
+	.big_image .b_prev { display: block; width: 38px; float: left; text-align: center; margin: 0; padding: 0; }
+	
+	.big_image .b_next A { cursor: pointer; width: 38px; overflow: hidden; display: block; background: url("images/b_next.gif") no-repeat center left; }
+		.big_image .b_next A:hover { background: url("images/b_next.gif") no-repeat -38px center; }
+	.big_image .b_prev A { cursor: pointer; width: 38px; overflow: hidden; display: block; background: url("images/b_prev.gif") no-repeat center left; }
+		.big_image .b_prev A:hover { background: url("images/b_prev.gif") no-repeat -38px center; }
+	.big_image .image { display: block; text-align: center; margin: 0; padding: 0; }
+		.big_image .image IMG { margin: 0; padding: 0; }
+.image_text { font-family: Verdana, Arial, sans-serif; text-align: center; width: 100%; height: auto; margin: 0 auto; padding: 15px 0 0 0; overflow: hidden; color: #434242; font-size: 12px; line-height: 18px; }
+.author_text { font-family: Verdana, Arial, sans-serif; text-align: center; width: 100%; height: 20px; padding: 10px 0 0 0; overflow: hidden; color: #777777; font-size: 12px; line-height: 18px; }
+	.author_text A { font-size: 12px; line-height: 18px; color: #20a4ee; }

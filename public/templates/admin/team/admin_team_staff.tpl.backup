@@ -1,0 +1,329 @@
+		<br>
+		<table width="100%" cellspacing="0" cellpadding="0" border="0" id="form_input">
+
+			<tr>
+				<td width="50%" valign="top">
+
+				<!-- Переключатель между Список и История -->
+				<div id="conteiner" style="margin: 10px; padding: 0;">
+				<table width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 0 0 10px 0;">
+					<tr><td colspan="2" height="1" bgcolor="#b2b2b2"></td></tr>
+					<tr>
+						<td width="50%" id="{if empty($smarty.get.history)}active_left{else}notactive{/if}"><a href="javascript:void(0)" onclick="javascript:showStaffTab('staff_list_tab');">Список</a></td>
+						<td width="50%" id="{if !empty($smarty.get.history)}active_right{else}notactive{/if}"><a href="javascript:void(0)" onclick="javascript:showStaffTab('staff_history_tab');">История</a></td>
+					</tr>
+				</table>
+				</div>
+
+				<!-- Вкладка "Список" -->
+				<div id="staff_list_tab" style="display: {if empty($smarty.get.history)}block{else}none{/if};">
+				<div id="conteiner" style="margin: 10px; padding: 0;">
+				
+				<table width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 0 0 10px 0;">
+					<tr><td colspan="3" height="1" bgcolor="#b2b2b2"></td></tr>
+					<tr>
+						<td width="33%" id="{if $app_type == 'player'}active_left{else}notactive{/if}"><a href="?show=team&get=edit&item={$smarty.get.item}&cont=5{if !empty($smarty.get.list)}&list={$smarty.get.list}{/if}&app_type=player">Игроки</a></td>
+						<td width="34%" id="{if $app_type == 'head'}active{else}notactive{/if}"><a href="?show=team&get=edit&item={$smarty.get.item}&cont=5{if !empty($smarty.get.list)}&list={$smarty.get.list}{/if}&app_type=head">Руководство</a></td>
+						<td width="33%" id="{if $app_type == 'rest'}active_right{else}notactive{/if}"><a href="?show=team&get=edit&item={$smarty.get.item}&cont=5{if !empty($smarty.get.list)}&list={$smarty.get.list}{/if}&app_type=rest">Другие</a></td>
+					</tr>
+				</table>
+				<div id="lang_1">
+					<table width="100%" cellspacing="0" cellpadding="0" border="0">
+						<tr><td colspan="4" height="1" bgcolor="#b2b2b2"></td></tr>
+						<tr>
+							<td width="50%" id="active_left"><a href="javascript:void(0)" onclick="javascript:showBlokLang('lang_1');">по имени</a></td>
+							<td width="50%" id="notactive"><a href="javascript:void(0)" onclick="javascript:showBlokLang('lang_2');">по должности</a></td>
+						</tr>
+					</table>
+					<div style="margin: 30px 10px 0 10px;">
+					{if $team_staff_list_byname}
+					{foreach key=key item=item_stbn from=$team_staff_list_byname name=stbyname}
+						<b>{$item_stbn.name}</b><br>
+						{foreach key=key item=item from=$item_stbn.st_app name=appointmen}
+						<a href="?show=team&get=edit&item={$smarty.get.item}&cont=5&staff={$item.cnstt_id}&app_type={$app_type}">{$item.app_title_ru}</a>{if !$smarty.foreach.appointmen.last}, {/if}
+						{/foreach}
+						<br><br>
+					{/foreach}
+					{/if}
+					</div>
+				</div>
+				<div id="lang_2">
+					<table width="100%" cellspacing="0" cellpadding="0" border="0">
+						<tr><td colspan="4" height="1" bgcolor="#b2b2b2"></td></tr>
+						<tr>
+							<td width="50%" id="notactive"><a href="javascript:void(0)" onclick="javascript:showBlokLang('lang_1');">по имени</a></td>
+							<td width="50%" id="active_right"><a href="javascript:void(0)" onclick="javascript:showBlokLang('lang_2');">по должности</a></td>
+						</tr>
+					</table>
+					<div style="margin: 30px 10px 0 10px;">
+					{if $team_staff_list_byapp}
+					{foreach key=key item=item_stbn from=$team_staff_list_byapp name=stbyname}
+						<b>{$item_stbn.app_title_ru}</b><br>
+						<ol style="margin: 5px 10px 0px 20px; ">
+						{foreach key=key item=item from=$item_stbn.st_app name=appointmen}
+						<li><a href="?show=team&get=edit&item={$smarty.get.item}&cont=5&staff={$item.cnstt_id}&app_type={$app_type}">{$item.name}</a></li>
+						{/foreach}
+						</ol>
+						<br>
+					{/foreach}
+					{/if}
+					</div>
+				</div>
+				<div id="lang_3">
+					
+				</div>
+				</div>
+				</div>
+				</div>
+				<!-- Закрыли вкладку "Список" -->
+
+				<!-- Вкладка "История" -->
+				<div id="staff_history_tab" style="display: {if !empty($smarty.get.history)}block{else}none{/if};">
+				<div id="conteiner" style="margin: 10px; padding: 0;">
+				<div style="margin: 30px 10px 10px 10px;">
+					{if $team_staff_history and $team_categories_list}
+					<table cellspacing="0" cellpadding="0" border="0" width="100%">
+					{foreach key=key item=item_tsl from=$team_staff_history name=tslh}
+						<tr>
+							<td valign="top">{$smarty.foreach.tslh.iteration}.</td>
+							<td>{assign var="app_id" value=$item_tsl.cnstt_app_id}{$team_categories_list_id.$app_id.app_title_ru}<br><a href="?show=team&get=edit&item={$smarty.get.item}&cont=5&history=1&staff={$item_tsl.cnstt_id}">{$item_tsl.st_family_ru} {$item_tsl.st_name_ru} {$item_tsl.st_surname_ru}</a></td>
+							<td><center><img src="images/in.gif" border="0" alt="{$item_tsl.cnstt_date_add}"><br><span style="font-size: 8px;">{$item_tsl.cnstt_date_add|date_format:"%e. %m. %Y"}</span></center></td>
+							<td>{if $item_tsl.cnstt_date_quit != '0000-00-00 00:00:00'}<center><img src="images/out.gif" border="0" alt="{$item_tsl.cnstt_date_quit}"><br><span style="font-size: 8px;">{$item_tsl.cnstt_date_quit|date_format:"%e. %m. %Y"}</span></center>{/if}</td>
+						</tr>
+					{/foreach}
+					</table>
+					{else}
+						<br><br><br><center>список пуст</center><br><br><br>
+					{/if}
+				</div>
+				</div>
+				</div>
+				<!-- Закрыли вкладку "История" -->
+
+				</td>
+				<td width="50%" valign="top">
+			{if !empty($t_staff_item)}
+			{if empty($smarty.get.history)}
+				<div id="conteiner" style="margin: 10px; background: #efefef">
+					<center><b>Редактирование: </b>
+					<form method="post" action="?show=team&get=edit&item={$smarty.get.item}{if $smarty.get.app_type}&app_type={$smarty.get.app_type}{/if}&cont=5" onsubmit="if (!confirm('Вы уверены?')) return false" style="margin-top: 20px; margin-bottom: 20px;">
+					<input type="Hidden" name="cnstt_id" value="{$t_staff_item.cnstt_id}">
+					<b>{$t_staff_item.st_family_ru} {$t_staff_item.st_name_ru} {$t_staff_item.st_surname_ru}</b>
+					<br><br>
+					на должность:
+					<br>
+					{if $team_categories_list}
+						<select name="appointment_id" id="input50">
+							{foreach key=key item=item from=$team_categories_list name=appointmen}{if $item.app_type == $app_type}<option value="{$item.app_id}"{if $item.app_id == $t_staff_item.cnstt_app_id} selected{/if}>{$item.app_title_ru}</option>
+							{/if}{/foreach}
+						</select>
+					{else}
+						<span style="color: #f00;">Список должностей пуст</span>
+					{/if}
+					<br><br>
+					c 
+					<select name="app_date_day">
+					{section name = day start = 1 loop = 32}
+						<option value="{$smarty.section.day.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%d" == $smarty.section.day.index} selected{/if}>{$smarty.section.day.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_month">
+					{section name = month start = 1 loop = 13}
+						<option value="{$smarty.section.month.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%m" == $smarty.section.month.index} selected{/if}>{$smarty.section.month.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_year">
+					{section name = year start = 2000 loop = 2031}
+						<option value="{$smarty.section.year.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%Y" == $smarty.section.year.index} selected{/if}>{$smarty.section.year.index}</option>
+					{/section}
+					</select>
+					<br><br>
+					сортировка: 
+					<input type="text" name="cnstt_order" value="{$t_staff_item.cnstt_order}" id="input" maxlength="2" style="text-align: center; width: 40px;">
+					<br><br>
+					
+					{if $staff_list and $team_categories_list}<input type="submit" name="edit_team_staff" id="submitsave" value="Сохранить">{else}<span style="color: #f00;">невозможно добавление</span>{/if}
+					</form>
+					</center>
+				</div>
+				<div id="conteiner" style="margin: 10px; background: #ffffff">
+					<center><b>Добавить должность: </b>
+					<form method="post" action="?show=team&get=edit&item={$smarty.get.item}&cont=5" onsubmit="if (!confirm('Вы уверены?')) return false" style="margin-top: 20px; margin-bottom: 20px;">
+					<input type="Hidden" name="staff_id" value="{$t_staff_item.cnstt_st_id}">
+					<input type="Hidden" name="t_id" value="{$t_staff_item.cnstt_t_id}">
+					<b>{$t_staff_item.st_family_ru} {$t_staff_item.st_name_ru} {$t_staff_item.st_surname_ru}</b>
+					<br><br>
+					на новую должность:
+					<br>
+					{if $team_categories_list}
+						<select name="appointment_id" id="input50">
+							{foreach key=key item=item from=$team_categories_list name=appointmen}{if (!empty($t_staff_item.cnstt_app_id) && $item.app_id != $t_staff_item.cnstt_app_id && $item.app_type == $app_type) || (empty($t_staff_item.cnstt_app_id) && $item.app_type == $app_type)}<option value="{$item.app_id}">{$item.app_title_ru}</option>{/if}
+							{/foreach}
+						</select>
+					{else}
+						<span style="color: #f00;">Список должностей пуст</span>
+					{/if}
+					<br><br>
+					c 
+					<select name="app_date_day">
+					{section name = day start = 1 loop = 32}
+						<option value="{$smarty.section.day.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%d" == $smarty.section.day.index} selected{/if}>{$smarty.section.day.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_month">
+					{section name = month start = 1 loop = 13}
+						<option value="{$smarty.section.month.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%m" == $smarty.section.month.index} selected{/if}>{$smarty.section.month.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_year">
+					{section name = year start = 2000 loop = 2031}
+						<option value="{$smarty.section.year.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%Y" == $smarty.section.year.index} selected{/if}>{$smarty.section.year.index}</option>
+					{/section}
+					</select>
+					<br><br>
+					{if $staff_list and $team_categories_list}<input type="submit" name="add_new_team_staff" id="submitsave" value="Добавить">{else}<span style="color: #f00;">невозможно добавление</span>{/if}
+					</form>
+					</center>
+				</div>
+			{/if}
+			{if !empty($t_staff_item.cnstt_id) && $t_staff_item.cnstt_id>0 and empty($t_staff_item.cnstt_date_quit)}
+				<div id="conteiner" style="margin: 10px; background: #faa">
+					<center><b>Уволить: </b>
+					<form method="post"  action="?show=team&get=edit&item={$smarty.get.item}&cont=5" onsubmit="if (!confirm('Вы уверены?')) return false" style="margin-top: 20px; margin-bottom: 20px;">
+					<input type="Hidden" name="cnstt_id" value="{$t_staff_item.cnstt_id}">
+					<b>{$t_staff_item.st_family_ru} {$t_staff_item.st_name_ru} {$t_staff_item.st_surname_ru}</b>
+					<br><br>
+					с должности:
+					<br>
+					{if $team_categories_list}
+						{foreach key=key item=item from=$team_categories_list name=appointmen}{if $item.app_id == $t_staff_item.cnstt_app_id}<b>{$item.app_title_ru}</b>{/if}
+						{/foreach}
+					{else}
+						<span style="color: #f00;">Список должностей пуст</span>
+					{/if}
+					<br><br>
+					c 
+					<select name="app_date_day">
+					{section name = day start = 1 loop = 32}
+						<option value="{$smarty.section.day.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%d" == $smarty.section.day.index} selected{/if}>{$smarty.section.day.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_month">
+					{section name = month start = 1 loop = 13}
+						<option value="{$smarty.section.month.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%m" == $smarty.section.month.index} selected{/if}>{$smarty.section.month.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_year">
+					{section name = year start = 2000 loop = 2031}
+						<option value="{$smarty.section.year.index}"{if !empty($t_staff_item.cnstt_date_add) && $t_staff_item.cnstt_date_add|date_format:"%Y" == $smarty.section.year.index} selected{/if}>{$smarty.section.year.index}</option>
+					{/section}
+					</select>
+					<br><br>
+					{if $staff_list and $team_categories_list}<input type="submit" name="quit_team_staff" id="submitsave" value="Уволить">{else}<span style="color: #f00;">невозможно добавление</span>{/if}
+					</form>
+					</center>
+				</div>
+			{/if}
+			{if !empty($t_staff_item.cnstt_date_quit)}
+				<div id="conteiner" style="margin: 10px; background: #efefef">
+					<center><b>Вернуть на должность: </b>
+					<form method="post" action="?show=team&get=edit&item={$smarty.get.item}&cont=5" onsubmit="if (!confirm('Вы уверены?')) return false" style="margin-top: 20px; margin-bottom: 20px;">
+					<input type="Hidden" name="cnstt_id" value="{$t_staff_item.cnstt_id}">
+					<b>{$t_staff_item.st_family_ru} {$t_staff_item.st_name_ru} {$t_staff_item.st_surname_ru}</b>
+					<br><br>
+					на должность:
+					<br>
+					{if $team_categories_list}
+						{foreach key=key item=item from=$team_categories_list name=appointmen}{if $item.app_id == $t_staff_item.cnstt_app_id}<b>{$item.app_title_ru}</b>{/if}
+						{/foreach}
+					{else}
+						<span style="color: #f00;">Список должностей пуст</span>
+					{/if}
+					<br><br>
+					<input type="submit" name="return_team_staff" id="submitsave" value="Вернуть">
+					</form>
+					</center>
+				</div>
+				<div id="conteiner" style="margin: 10px; background: #f00; color: #fff">
+					<center><b>Удалить: </b>
+					<form method="post"  action="?show=team&get=edit&item={$smarty.get.item}&cont=5" onsubmit="if (!confirm('Вы уверены?')) return false" style="margin-top: 20px; margin-bottom: 20px;">
+					<input type="Hidden" name="cnstt_id" value="{$t_staff_item.cnstt_id}">
+					<b>{$t_staff_item.st_family_ru} {$t_staff_item.st_name_ru} {$t_staff_item.st_surname_ru}</b>
+					<br><br>
+					должность:
+					<br>
+					{if $team_categories_list}
+						{foreach key=key item=item from=$team_categories_list name=appointmen}{if $item.app_id == $t_staff_item.cnstt_app_id}<b>{$item.app_title_ru}</b>{/if}
+						{/foreach}
+					{else}
+						<span style="color: #f00;">Список должностей пуст</span>
+					{/if}
+					<br><br>
+					принят:
+					<br>
+					<b>{$t_staff_item.cnstt_date_add|date_format:"%e. %m. %Y"}</b>
+					<br><br>
+					{if !empty($t_staff_item.cnstt_date_quit)}
+					уволен:
+					<br>
+					<b>{$t_staff_item.cnstt_date_quit|date_format:"%e. %m. %Y"}</b>
+					<br><br>
+					{/if}
+					{if $staff_list and $team_categories_list}<input type="submit" name="delete_team_staff" id="submitsave" value="Удалить">{else}<span style="color: #f00;">невозможно добавление</span>{/if}
+					</form>
+					</center>
+				</div>
+			{/if}
+			{/if}
+				<div id="conteiner" style="margin: 10px;">
+					<center><b>Добавление: </b>
+					<form method="post"  action="?show=team&get=edit&item={$smarty.get.item}&cont=5" onsubmit="if (!confirm('Вы уверены?')) return false" style="margin-top: 20px; margin-bottom: 20px;">
+					<input type="Hidden" name="t_id" value="{$team_item.t_id}">
+					<input type="Hidden" name="staff_id" id="staff_auto_val">
+					<input type="text" id="staff_input_id" placeholder="Начните вводить имя игрока..." style="width: 300px;">
+					<div id="staff_selected_container"></div>
+					<br><br>
+					на должность:
+					<br>
+					{if $team_categories_list}
+						<select name="appointment_id" id="input50">
+							{foreach key=key item=item from=$team_categories_list name=appointmen}
+                                {if $item.app_type == $app_type}
+                                    <option value="{$item.app_id}">{$item.app_title_ru}</option>
+							    {/if}
+                            {/foreach}
+						</select>
+					{else}
+						<span style="color: #f00;">Список должностей пуст</span>
+					{/if}
+					<br><br>
+					c 
+					<select name="app_date_day">
+					{section name = day start = 1 loop = 32}
+						<option value="{$smarty.section.day.index}"{if $smarty.now|date_format:"%d" == $smarty.section.day.index} selected{/if}>{$smarty.section.day.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_month">
+					{section name = month start = 1 loop = 13}
+						<option value="{$smarty.section.month.index}"{if $smarty.now|date_format:"%m" == $smarty.section.month.index} selected{/if}>{$smarty.section.month.index}</option>
+					{/section}
+					</select>
+					<select name="app_date_year">
+					{section name = year start = 2000 loop = 2031}
+						<option value="{$smarty.section.year.index}"{if $smarty.now|date_format:"%Y" == $smarty.section.year.index} selected{/if}>{$smarty.section.year.index}</option>
+					{/section}
+					</select>
+					<br><br>
+					сортировка: 
+					<input type="text" name="cnstt_order" id="input" maxlength="2" style="text-align: center; width: 40px;" >
+					<br><br>
+					
+					{if $team_categories_list}<input type="submit" name="add_team_staff" id="submitsave" value="<<< Добавить">{else}<span style="color: #f00;">невозможно добавление</span>{/if}
+					</form>
+					</center>
+				</div>
+				
+				</td>
+				</tr>
+			</table>
+		<br>

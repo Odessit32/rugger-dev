@@ -1,0 +1,67 @@
+# Rugger.info Robots.txt
+# Updated: 2025
+
+# Yandex News bot
+User-agent: YandexNews
+Allow: /rss_yndx.php
+Allow: /news/
+Crawl-delay: 1
+
+# Google bot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /page-test
+Disallow: /templates_c/
+Disallow: /cache/
+Disallow: /*?*
+Disallow: /search/
+# Фильтры и пагинация (дубли контента)
+Disallow: /*page
+Disallow: /*/ch-
+Disallow: /*/date-
+Disallow: /*/week-
+Disallow: /*/month-
+
+# Yandex bot
+User-agent: Yandex
+Allow: /
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /page-test
+Disallow: /templates_c/
+Disallow: /cache/
+Disallow: /*?*
+Disallow: /search/
+# Фильтры и пагинация (дубли контента)
+Disallow: /*page
+Disallow: /*/ch-
+Disallow: /*/date-
+Disallow: /*/week-
+Disallow: /*/month-
+Crawl-delay: 2
+
+# All other bots
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /page-test
+Disallow: /templates_c/
+Disallow: /cache/
+Disallow: /*?*
+Disallow: /search/
+# Фильтры и пагинация (дубли контента)
+Disallow: /*page
+Disallow: /*/ch-
+Disallow: /*/date-
+Disallow: /*/week-
+Disallow: /*/month-
+Crawl-delay: 5
+
+# Sitemap
+Sitemap: https://rugger.info/sitemap.xml
+
+# Host (для Яндекса)
+Host: https://rugger.info

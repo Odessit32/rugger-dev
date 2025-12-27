@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title></title>
+		<meta name = "description" content = "">
+		<meta 
+            name = "viewport" 
+            content = "width=device-width, initial-scale = 1"
+        >
+        <link 
+            href = "scripts/bootstrap-4.5.3-dist/css/bootstrap.min.css"
+            rel = "stylesheet"
+        ></head>
+		
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+        <!--script src = "scripts/main.js" type = "module"></script-->
+        <script src = "scripts/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+        <link rel = "stylesheet" href = "styles-adfkasjdhkasd2.css">
+        <link rel = "stylesheet" href = "styles-match-center.css">
+	</head>
+	<body>
+        <div id = "main-menu">
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <a href="index-skdjhfsjdfjewuhfu3uf3.html">
+                <div class = "menu-point" id = "menu-championships"></div>
+            </a>
+            <div class = "menu-point" id = "menu-match-center"></div>
+            <a href="index-skdjhfsjdfjewuhfu3uf3-databases.html">
+                <div class = "menu-point" id = "menu-databases"></div>
+            </a>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+        </div>
+        <div id = "content">
+            <div id = "matches-header">
+                <div class = "filters">
+                    <div>
+                        <select class="custom-select" aria-label="авыаываы">
+                            <option selected>Все турниры</option>
+                            <option value="1">Турнир 1</option>
+                            <option value="2">Турнир 2</option>
+                            <option value="3">Турнир 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-success active">
+                              <input type="radio" name="options" id="option1" checked>
+                              Все матчи
+                            </label>
+                            <label class="btn btn-success">
+                              <input type="radio" name="options" id="option2">
+                              Расписание
+                            </label>
+                            <label class="btn btn-success">
+                              <input type="radio" name="options" id="option3">
+                              Результаты
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-success active">
+                              <input type="radio" name="options" id="option1" checked>
+                              Две недели
+                            </label>
+                            <label class="btn btn-success">
+                              <input type="radio" name="options" id="option2">
+                              Текущая неделя
+                            </label>
+                            <label class="btn btn-success">
+                              <input type="radio" name="options" id="option3">
+                              Сегодня
+                            </label>
+                            <label class="btn btn-success">
+                              <input type="radio" name="options" id="option3">
+                              Выбрать дату
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class = "buttons">
+                    <button 
+                        type="button" 
+                        class="btn btn-danger" 
+                    >
+                        Перенесенные матчи
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-success" 
+                    >
+                        Добавить матч
+                    </button>
+                </div>
+                <div id = "period-description">22 января, 2021 - 28 января, 2021</div>
+            </div>
+            <table id = "matches-table">
+                <tr>
+                    <th>Турнир</th>
+                    <th>Матч</th>
+                    <th>Счёт</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Статус</th>
+                    <th>Протокол</th>
+                </tr>
+                <tr>
+                    <td class = "tournament-cell">
+                        <div class = "table-tournament-icon"></div>
+                        <div>Круговой турнир</div>
+                        <div>5-й тур</div>
+                    </td>
+                    <td>Тулон-Брив</td>
+                    <td class = "score-cell">
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type = "text">
+                                <input type = "text">
+                            </div>
+                            <div>
+                                <input type = "checkbox">
+                                Техн. победа
+                                <input type = "checkbox">
+                            </div>
+                        </div>
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                    </td>
+                    <td class = "date-cell">
+                        <input type = "text">
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td>
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td class = "status=cell">
+                        <div>
+                            <input type = "checkbox">Отменён
+                        </div>
+                        <div>
+                            <input type = "checkbox">Перенесен
+                        </div>
+                    </td>
+                    <td class = "protocol-cell">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            data-toggle="modal" 
+                            data-target="#fill-the-match-modal-window"
+                        >
+                            Заполнить
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "tournament-cell">
+                        <div class = "table-tournament-icon"></div>
+                        <div>Круговой турнир</div>
+                        <div>5-й тур</div>
+                    </td>
+                    <td>Тулон-Брив</td>
+                    <td class = "score-cell">
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type = "text">
+                                <input type = "text">
+                            </div>
+                            <div>
+                                <input type = "checkbox">
+                                Техн. победа
+                                <input type = "checkbox">
+                            </div>
+                        </div>
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                    </td>
+                    <td class = "date-cell">
+                        <input type = "text">
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td>
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td class = "status=cell">
+                        <div>
+                            <input type = "checkbox">Отменён
+                        </div>
+                        <div>
+                            <input type = "checkbox">Перенесен
+                        </div>
+                    </td>
+                    <td class = "protocol-cell">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            data-toggle="modal" 
+                            data-target="#fill-the-match-modal-window"
+                        >
+                            Заполнить
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "tournament-cell">
+                        <div class = "table-tournament-icon"></div>
+                        <div>Круговой турнир</div>
+                        <div>5-й тур</div>
+                    </td>
+                    <td>Тулон-Брив</td>
+                    <td class = "score-cell">
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type = "text">
+                                <input type = "text">
+                            </div>
+                            <div>
+                                <input type = "checkbox">
+                                Техн. победа
+                                <input type = "checkbox">
+                            </div>
+                        </div>
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                    </td>
+                    <td class = "date-cell">
+                        <input type = "text">
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td>
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td class = "status=cell">
+                        <div>
+                            <input type = "checkbox">Отменён
+                        </div>
+                        <div>
+                            <input type = "checkbox">Перенесен
+                        </div>
+                    </td>
+                    <td class = "protocol-cell">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            data-toggle="modal" 
+                            data-target="#fill-the-match-modal-window"
+                        >
+                            Заполнить
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "tournament-cell">
+                        <div class = "table-tournament-icon"></div>
+                        <div>Круговой турнир</div>
+                        <div>5-й тур</div>
+                    </td>
+                    <td>Тулон-Брив</td>
+                    <td class = "score-cell">
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type = "text">
+                                <input type = "text">
+                            </div>
+                            <div>
+                                <input type = "checkbox">
+                                Техн. победа
+                                <input type = "checkbox">
+                            </div>
+                        </div>
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                    </td>
+                    <td class = "date-cell">
+                        <input type = "text">
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td>
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td class = "status=cell">
+                        <div>
+                            <input type = "checkbox">Отменён
+                        </div>
+                        <div>
+                            <input type = "checkbox">Перенесен
+                        </div>
+                    </td>
+                    <td class = "protocol-cell">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            data-toggle="modal" 
+                            data-target="#fill-the-match-modal-window"
+                        >
+                            Заполнить
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "tournament-cell">
+                        <div class = "table-tournament-icon"></div>
+                        <div>Круговой турнир</div>
+                        <div>5-й тур</div>
+                    </td>
+                    <td>Тулон-Брив</td>
+                    <td class = "score-cell">
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type = "text">
+                                <input type = "text">
+                            </div>
+                            <div>
+                                <input type = "checkbox">
+                                Техн. победа
+                                <input type = "checkbox">
+                            </div>
+                        </div>
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                    </td>
+                    <td class = "date-cell">
+                        <input type = "text">
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td>
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td class = "status=cell">
+                        <div>
+                            <input type = "checkbox">Отменён
+                        </div>
+                        <div>
+                            <input type = "checkbox">Перенесен
+                        </div>
+                    </td>
+                    <td class = "protocol-cell">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            data-toggle="modal" 
+                            data-target="#fill-the-match-modal-window"
+                        >
+                            Заполнить
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class = "tournament-cell">
+                        <div class = "table-tournament-icon"></div>
+                        <div>Круговой турнир</div>
+                        <div>5-й тур</div>
+                    </td>
+                    <td>Тулон-Брив</td>
+                    <td class = "score-cell">
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type = "text">
+                                <input type = "text">
+                            </div>
+                            <div>
+                                <input type = "checkbox">
+                                Техн. победа
+                                <input type = "checkbox">
+                            </div>
+                        </div>
+                        <div>
+                            <div>Поп</div>
+                            <div><input type = "text"></div>
+                        </div>
+                    </td>
+                    <td class = "date-cell">
+                        <input type = "text">
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td>
+                        <input type = "text">
+                        <input type = "text">
+                    </td>
+                    <td class = "status=cell">
+                        <div>
+                            <input type = "checkbox">Отменён
+                        </div>
+                        <div>
+                            <input type = "checkbox">Перенесен
+                        </div>
+                    </td>
+                    <td class = "protocol-cell">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            data-toggle="modal" 
+                            data-target="#fill-the-match-modal-window"
+                        >
+                            Заполнить
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div 
+            class="modal fade" 
+            id="fill-the-match-modal-window"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id = "tournament-description">
+                            ТОП-14. 2020-2021. Круговой турнир.
+                        </div>
+                        <div id = "match-name">
+                            Тулон - Брив
+                        </div>
+                        <table id = "match-table">
+                            <tr>
+                                <th>Счёт</th>
+                                <th>Дата</th>
+                                <th>Время</th>
+                                <th>Этап</th>
+                                <th>Стадия</th>
+                                <th>Тур</th>
+                                <th>Статус</th>
+                                <th>Город</th>
+                                <th>Стадион</th>
+                            </tr>
+                            <tr>
+                                <td class = "score-cell">
+                                    <div>
+                                        <div>Поп</div>
+                                        <div><input type = "text"></div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <input type = "text">
+                                            <input type = "text">
+                                        </div>
+                                        <div>
+                                            <input type = "checkbox">
+                                            Техн. победа
+                                            <input type = "checkbox">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div>Поп</div>
+                                        <div><input type = "text"></div>
+                                    </div>
+                                </td>
+                                <td class = "date-cell">
+                                    <input type = "text">
+                                    <input type = "text">
+                                    <input type = "text">
+                                </td>
+                                <td>
+                                    <input type = "text">
+                                    <input type = "text">
+                                </td>
+                                <td>
+                                    <input type = "text">
+                                </td>
+                                <td>
+                                    <input type = "text">
+                                </td>
+                                <td>
+                                    <input type = "text">
+                                </td>
+                                <td class = "status=cell">
+                                    <div>
+                                        <input type = "checkbox">Отменён
+                                    </div>
+                                    <div>
+                                        <input type = "checkbox">Перенесен
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type = "text">
+                                </td>
+                                <td>
+                                    <input type = "text">
+                                </td>
+                            </tr>
+                        </table>
+                        <div id = "match-details-viewer">
+                            <ul>
+                                <li>
+                                    <a href="#teams-tab">Составы</a>
+                                </li>
+                                <li><a href="#officials-tab">Официальные лица</a></li>
+                                <li><a href="#live-tab">Live</a></li>
+                            </ul>
+                            <div id="teams-tab">
+                                <div id = "first-team-window" class = "window">
+                                    <div class = "table-caption">
+                                        Тулон
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <th>Позиция</th>
+                                            <th>ФИО игрока</th>
+                                        </tr>
+                                        <tr><td>1</td><td><input type = "text"></td></tr>
+                                        <tr><td>2</td><td><input type = "text"></td></tr>
+                                        <tr><td>3</td><td><input type = "text"></td></tr>
+                                        <tr><td>4</td><td><input type = "text"></td></tr>
+                                        <tr><td>5</td><td><input type = "text"></td></tr>
+                                        <tr><td>6</td><td><input type = "text"></td></tr>
+                                        <tr><td>7</td><td><input type = "text"></td></tr>
+                                        <tr><td>8</td><td><input type = "text"></td></tr>
+                                        <tr><td>9</td><td><input type = "text"></td></tr>
+                                        <tr><td>10</td><td><input type = "text"></td></tr>
+                                        <tr><td>11</td><td><input type = "text"></td></tr>
+                                        <tr><td>12</td><td><input type = "text"></td></tr>
+                                        <tr><td>13</td><td><input type = "text"></td></tr>
+                                        <tr><td>14</td><td><input type = "text"></td></tr>
+                                        <tr><td>15</td><td><input type = "text"></td></tr>
+                                        <tr><td>16</td><td><input type = "text"></td></tr>
+                                        <tr><td>17</td><td><input type = "text"></td></tr>
+                                        <tr><td>18</td><td><input type = "text"></td></tr>
+                                        <tr><td>19</td><td><input type = "text"></td></tr>
+                                        <tr><td>20</td><td><input type = "text"></td></tr>
+                                        <tr><td>21</td><td><input type = "text"></td></tr>
+                                        <tr><td>22</td><td><input type = "text"></td></tr>
+                                        <tr><td>23</td><td><input type = "text"></td></tr>
+                                    </table>
+                                </div>
+                                <div id = "second-team-window" class = "window">
+                                    <div class = "table-caption">
+                                        Брив
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <th>Позиция</th>
+                                            <th>ФИО игрока</th>
+                                        </tr>
+                                        <tr><td>1</td><td><input type = "text"></td></tr>
+                                        <tr><td>2</td><td><input type = "text"></td></tr>
+                                        <tr><td>3</td><td><input type = "text"></td></tr>
+                                        <tr><td>4</td><td><input type = "text"></td></tr>
+                                        <tr><td>5</td><td><input type = "text"></td></tr>
+                                        <tr><td>6</td><td><input type = "text"></td></tr>
+                                        <tr><td>7</td><td><input type = "text"></td></tr>
+                                        <tr><td>8</td><td><input type = "text"></td></tr>
+                                        <tr><td>9</td><td><input type = "text"></td></tr>
+                                        <tr><td>10</td><td><input type = "text"></td></tr>
+                                        <tr><td>11</td><td><input type = "text"></td></tr>
+                                        <tr><td>12</td><td><input type = "text"></td></tr>
+                                        <tr><td>13</td><td><input type = "text"></td></tr>
+                                        <tr><td>14</td><td><input type = "text"></td></tr>
+                                        <tr><td>15</td><td><input type = "text"></td></tr>
+                                        <tr><td>16</td><td><input type = "text"></td></tr>
+                                        <tr><td>17</td><td><input type = "text"></td></tr>
+                                        <tr><td>18</td><td><input type = "text"></td></tr>
+                                        <tr><td>19</td><td><input type = "text"></td></tr>
+                                        <tr><td>20</td><td><input type = "text"></td></tr>
+                                        <tr><td>21</td><td><input type = "text"></td></tr>
+                                        <tr><td>22</td><td><input type = "text"></td></tr>
+                                        <tr><td>23</td><td><input type = "text"></td></tr>
+                                    </table>
+                                </div>
+
+                                
+                            </div>
+                            <div id="officials-tab">
+                                <table>
+                                    <tr>
+                                        <th>Статус</th>
+                                        <th>ФИО официального лица</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Судья в поле</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Помощник судьи 1</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Помощник судьи 2</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Видео-рефери</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Комиссар матча</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Помощник судьи 3</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Помощник судьи 4</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Резервный судья</td>
+                                        <td><input type = "text"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="live-tab">
+                                <table>
+                                    <tr>
+                                        <th>ФИО игрока</th>
+                                        <th>ВЗ</th>
+                                        <th>ПЗ</th>
+                                        <th>Попытка</th>
+                                        <th>Реализация</th>
+                                        <th>Штрафной</th>
+                                        <th>Дроп-гоп</th>
+                                        <th>Жёлтая</th>
+                                        <th>Красная</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                        <td><input type="text"></td>
+                                    </tr>
+                                </table>
+                                <div id = "live-first-team-window" class = "window">
+                                    <div class = "table-caption">
+                                        Тулон
+                                    </div>
+                                    <table>
+                                        <tr><td>Попытки:</td><td></td></tr>
+                                        <tr><td>Реализации:</td><td></td></tr>
+                                        <tr><td>Штрафные:</td><td></td></tr>
+                                        <tr><td>Дроп-голы:</td><td></td></tr>
+                                        <tr><td>Жёлтые карточки:</td><td></td></tr>
+                                        <tr><td>Красные карточки:</td><td></td></tr>
+                                        <tr><td>Замены:</td><td></td></tr>
+                                    </table>
+                                </div>
+                                <div id = "live-second-team-window" class = "window">
+                                    <div class = "table-caption">
+                                        Брив
+                                    </div>
+                                    <table>
+                                        <tr><td>Попытки:</td><td></td></tr>
+                                        <tr><td>Реализации:</td><td></td></tr>
+                                        <tr><td>Штрафные:</td><td></td></tr>
+                                        <tr><td>Дроп-голы:</td><td></td></tr>
+                                        <tr><td>Жёлтые карточки:</td><td></td></tr>
+                                        <tr><td>Красные карточки:</td><td></td></tr>
+                                        <tr><td>Замены:</td><td></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#match-details-viewer").tabs()
+        </script>
+	</body>
+</html>

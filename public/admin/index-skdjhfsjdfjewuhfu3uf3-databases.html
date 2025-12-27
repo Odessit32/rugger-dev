@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>Админка</title>
+		<meta name = "description" content = "">
+		<meta 
+            name = "viewport" 
+            content = "width=device-width, initial-scale = 1"
+        >
+        <link 
+            href = "scripts/bootstrap-4.5.3-dist/css/bootstrap.min.css"
+            rel = "stylesheet"
+        >
+		
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+        <script src = "scripts/mainDatabase.js" type = "module"></script>
+        <script src = "scripts/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+        <link rel = "stylesheet" href = "styles-adfkasjdhkasd2.css">
+        <link rel = "stylesheet" href = "styles-databases.css">
+	</head>
+	<body>
+        <div id = "main-menu">
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <a href="index-skdjhfsjdfjewuhfu3uf3.html">
+                <div class = "menu-point" id = "menu-championships"></div>
+            </a>
+            <a href="index-skdjhfsjdfjewuhfu3uf3-match-center.html">
+                <div class = "menu-point" id = "menu-match-center"></div>
+            </a>
+            <div class = "menu-point" id = "menu-databases"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+            <div class = "menu-point"></div>
+        </div>
+        <div id = "content">
+            <div id = "databases-viewer">
+                <ul>
+                    <li><a href="#db-people-tab">Люди</a></li>
+                    <li><a href="#db-teams-tab">Команды</a></li>
+                    <li><a href="#db-objects-tab">Объекты</a></li>
+                    <li><a href="#db-settings-tab">Настройки</a></li>
+                </ul>
+                <div id="db-people-tab">
+                    <div id = "db-people-tab-main">
+                        <div>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-success active">
+                                  <input type="radio" name="options" checked>
+                                  Все
+                                </label>
+                                <label class="btn btn-success">
+                                  <input type="radio" name="options">
+                                  Мужчины
+                                </label>
+                                <label class="btn btn-success">
+                                  <input type="radio" name="options">
+                                  Женщины
+                                </label>
+                            </div>
+                            <button
+                                type="button" 
+                                class="btn btn-danger"
+                            >
+                                Поиск...
+                            </button>
+                            <button
+                                type = "button" 
+                                class = "btn btn-danger"
+                                id = "db-people-add-button"
+                            >
+                                Добавить
+                            </button>
+                        </div>
+                        <div>
+                            <select class="custom-select">
+                                <option selected>Игроки</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                            <select class="custom-select">
+                                <option selected>Позиция</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                            <button
+                                type="button" 
+                                class="btn btn-danger"
+                            >
+                                Команда...
+                            </button>
+                            <div class = "table">
+                                <div>
+                                    <div>Имя</div>
+                                    <div>Должность</div>
+                                    <div>Команда</div>
+                                </div>
+                                <div>
+                                    <div>Иван Петров</div>
+                                    <div>Игрок(15)</div>
+                                    <div>Енисей-СТМ</div>
+                                </div>
+                                <div>
+                                    <div>Иван Сидоров</div>
+                                    <div>Персонал(Врач)</div>
+                                    <div>Енисей-СТМ</div>
+                                </div>
+                                <div>
+                                    <div>Иван Иванов</div>
+                                    <div>Игрок(3)</div>
+                                    <div>Енисей-СТМ, Локомотив</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id = "db-people-tab-card">
+                        <div id = "databases-people-profile-viewer">
+                            <ul>
+                                <li>
+                                    <a href="#db-people-profile-tab">Профиль</a>
+                                </li>
+                                <li><a href="#db-people-photo-tab">Фото</a></li>
+                                <li><a href="#db-people-video-tab">Видео</a></li>
+                                <li><a href="#db-people-statistic-tab">Статистика</a></li>
+                            </ul>
+                            <div id="db-people-profile-tab">
+                                <div>
+                                    Фото
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Загрузить
+                                    </button>
+                                </div>
+                                <div>
+                                    <input type = "text" value = "Юрий">
+                                    <input type = "text" value = "Абуладзе">
+                                </div>
+                                <div>
+                                    Link
+                                    <input type = "text" value = "abuladze">
+                                </div>
+                                <div>
+                                    Дата рождения
+                                    <input type = "text" value = "22">
+                                    <input type = "text" value = "10">
+                                    <input type = "text" value = "1997">
+                                </div>
+                                <div>
+                                    Роль
+                                    <input type = "text" value = "Игрок —"> +
+                                </div>
+                                <div>
+                                    Позиция
+                                    <input type = "text" value = "15"> +
+                                </div>
+                                <div>
+                                    Команда
+                                    <input type = "text" value = "Енисей СТМ(15) —">
+                                    <input type = "text" value = "Грузия(15) —"> +
+                                </div>
+                                <div>
+                                    Рост
+                                    <input type = "text" value = "">
+                                    Вес
+                                    <input type = "text" value = "">
+                                </div>
+                                <div>
+                                    Описание
+                                    <textarea class="form-control" rows="4"></textarea>
+                                </div>
+                                <div>
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Сохранить
+                                    </button>
+                                </div>
+                            
+                            </div>
+                            <div id="db-people-photo-tab">
+                                <div>
+                                    Фото
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Загрузить
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Добавить
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="db-people-video-tab">
+                                <div>
+                                    Фото
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Загрузить
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Добавить
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="db-people-statistic-tab">
+                                <div>
+                                    Фото
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Загрузить
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        type="button" 
+                                        class="btn btn-danger"
+                                    >
+                                        Импортировать
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id = "db-people-tab-new-object">
+                        <div class = "window">
+                            <button
+                                type="button" 
+                                class="btn btn-danger"
+                                id = "db-people-new-person-back-button"
+                            >
+                                Назад
+                            </button>
+                            <div class = "table-caption">
+                                Новый человек
+                            </div>
+                            <div>
+                                Имя
+                                <input type="text">
+                            </div>
+                            <div>
+                                Фамилия
+                                <input type="text">
+                            </div>
+                            <div>
+                                Дата рождения
+                                <input type="date">
+                            </div>
+                            <div>
+                                Роль
+                                <div id = "db-people-tab-new-person-role"></div>
+                            </div>
+                            <div>
+                                Команда
+                                <input type="text">
+                            </div>
+                            <div>
+                                Фото
+                                <button
+                                    type="button" 
+                                    class="btn btn-danger"
+                                >
+                                    Загрузить
+                                </button>
+                            </div>
+                            <div>
+                                Статистика
+                                <button
+                                    type="button" 
+                                    class="btn btn-danger"
+                                >
+                                    Импортировать
+                                </button>
+                            </div>
+                            <div>
+                                Link
+                                <input type="text">
+                            </div>
+                            <div>
+                                Рост
+                                <input type="text">
+                                Вес
+                                <input type="text">
+                            </div>
+                            <div>
+                                Описание
+                                <textarea class="form-control" rows="4"></textarea>
+                            </div>
+                            <div>
+                                <button
+                                    type="button" 
+                                    class="btn btn-danger"
+                                >
+                                    Добавить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id = "db-teams-tab">
+                    <div id = "db-teams-tab-main">
+                        <div>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-success active">
+                                  <input type="radio" name="options" checked>
+                                  Все
+                                </label>
+                                <label class="btn btn-success">
+                                  <input type="radio" name="options">
+                                  Мужчины
+                                </label>
+                                <label class="btn btn-success">
+                                  <input type="radio" name="options">
+                                  Женщины
+                                </label>
+                            </div>
+                            <button
+                                type="button" 
+                                class="btn btn-danger"
+                            >
+                                Поиск...
+                            </button>
+                            <button
+                                type="button" 
+                                class="btn btn-danger"
+                                id = "db-teams-add-button"
+                            >
+                                Добавить
+                            </button>
+                        </div>
+                        <div>
+                            <select class="custom-select">
+                                <option selected>Вид</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                            <select class="custom-select">
+                                <option selected>Тип</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                            <select class="custom-select">
+                                <option selected>Тэг</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                            
+                            <div id = "db-teams-main-table"></div>
+                        </div>
+                        
+                    </div>
+                    <div id = "db-teams-tab-card"></div>
+                    <div id = "db-teams-tab-new-object">
+                        <button
+                            type="button" 
+                            class="btn btn-danger"
+                            id = "db-teams-new-team-back-button"
+                        >
+                            Назад
+                        </button>
+                        <div class = "window">
+                            <div class = "table-caption">
+                                Новая команда
+                            </div>
+                            <div>
+                                Название
+                                <input type="text">
+                            </div>
+                            <div>
+                                Короткое название
+                                <input type="text">
+                            </div>
+                            <div>
+                                Город
+                                <input type="text">
+                            </div>
+                            <div>
+                                Пол
+                                <input type="text">
+                            </div>
+                            <div>
+                                Вид
+                                <input type="text">
+                            </div>
+                            <div>
+                                Тип
+                                <input type="text">
+                            </div>
+                            <div>
+                                Год основания
+                                <input type="text">
+                            </div>
+                            <div>
+                                Главный тренер
+                                <input type="text">
+                            </div>
+                            <div>
+                                Капитан
+                                <input type="text">
+                            </div>
+                            <div>
+                                Цвета
+                                <input type="text">
+                            </div>
+                            <div>
+                                Логотип
+                                <button
+                                    type="button" 
+                                    class="btn btn-danger"
+                                >
+                                    Загрузить
+                                </button>
+                            </div>
+                            <div>
+                                Линк
+                                <input type="text">
+                            </div>
+                            <div>
+                                Описание
+                                <textarea class="form-control" rows="4"></textarea>
+                            </div>
+                            <div>
+                                <button
+                                    type="button" 
+                                    class="btn btn-danger"
+                                >
+                                    Добавить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id = "db-objects-tab">
+                    <div id = "db-objects-tab-main"></div>
+                    <div id = "db-objects-tab-card"></div>
+                    <div id = "db-objects-tab-new-object"></div>
+                </div>
+                <div id="db-settings-tab">
+                    <div id = "databases-settings-viewer">
+                        <ul>
+                            <li>
+                                <a href="#db-settings-people-tab">Люди</a>
+                            </li>
+                            <li><a href="#db-settings-teams-tab">Команды</a></li>
+                        </ul>
+                        <div id = "db-settings-people-tab" class = "db-settings-tab"></div>
+                        <div id = "db-settings-teams-tab" class = "db-settings-tab"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

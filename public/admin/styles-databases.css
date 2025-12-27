@@ -1,0 +1,139 @@
+/* #matches-table, #match-table { */
+    /* width: auto; */
+/* } */
+
+#match-table input {
+    width: 50px;
+}
+
+#match-table {
+    margin: 15px
+}
+
+#match-table th, #match-table td,
+#teams-tab {
+    text-align: center;
+}
+
+#first-team-window, #second-team-window {
+    width: auto;
+    display: inline-block;
+    margin: 10px;
+}
+
+#first-team-window input, 
+#second-team-window input {
+    height: 20px;
+}
+
+#live-tab > table td, 
+#live-tab > table th,
+#live-tab > table input {
+    width: 100px;
+    text-align: center;
+    margin: 5px;
+}
+
+#live-tab > table {
+    background: #e8e7e7;
+}
+
+#live-tab > .window td {
+    width: 100px;
+/*     background: aqua; */
+}
+
+#live-tab > .window .table-caption {
+    color: red;
+}
+
+#live-tab > .window {
+/*     background: red; */
+    display: inline-block;
+    margin: 10px;
+}
+
+.db-settings-point {
+    display: block;
+    margin-bottom: 5px
+}
+
+.db-settings-input {
+
+}
+
+.db-settings-remove-button {
+    background-color: #ff7e7e;
+    display: inline-block;
+    padding: 3px 6px;
+    color: white;
+    user-select: none;
+}
+
+.db-settings-col {
+    display: inline-block;
+    margin-right: 10px;
+    min-width: 225px;
+}
+
+.db-settings-tab > * {
+    vertical-align: top;
+}
+
+.db-settings-capture {
+    
+}
+
+.db-settings-capture-point {
+    display: inline-block;
+    width: 230px;
+    text-align: center;
+}
+
+#db-settings-tab input {
+    width: 200px;
+}
+
+.db-settings-new-point-button {
+    text-align: center;
+    font-size: 26px;
+    user-select: none;
+}
+
+#db-objects-tab-card {
+    display: none;
+}
+
+#db-objects-tab-new-object {
+    display: none;
+}
+
+#db-teams-tab-card {
+    display: none;
+}
+
+#db-teams-tab-new-object {
+    display: none;
+}
+
+#db-people-tab-card {
+    display: none;
+}
+
+#db-people-tab-new-object {
+    display: none;
+}
+
+.objects-card-photo-block {
+
+}
+
+.objects-card-main-photo {
+    width: 200px;
+    height: 200px;
+    border: 1px solid red;
+}
+
+#database-object-card-viewer {
+    
+}

@@ -1,0 +1,47 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+error_log*
+PHP_errors*
+
+# Cache and compiled templates
+public/templates_c/
+public/cache/
+
+# Uploads (user content)
+public/upload/
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Environment and config with secrets
+.env
+public/classes/config.local.php
+
+# Temporary files
+/tmp/
+*.tmp
+
+# Docker volumes data
+docker/mysql_data/
+
+# Backups
+*.sql
+*.sql.gz
+*.bak
+db_optimize.sql
+public/admin/bd_backup/*
+
+# Dev documentation (optional, can remove if want to track)
+*_README.md
