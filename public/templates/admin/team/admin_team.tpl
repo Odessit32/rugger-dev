@@ -28,14 +28,16 @@
 	
 	{if empty($smarty.get.get)}
 		<h1>Список команд</h1>
-		
-			<table width="80%" cellspacing="0" cellpadding="0" border="0" id="form_input">
+
+			<table width="80%" cellspacing="0" cellpadding="0" border="0" id="teams_table">
 			<tr>
 				<td align="center" colspan="6">
+					<input type="text" id="team_search" placeholder="Поиск по названию..." style="width: 300px; padding: 5px; margin-bottom: 10px; font-size: 14px;" onkeyup="filterTeams()">
+					<br>
 					<select id="input" style="width: 200px;" onchange="document.location.href='?show=team{if !empty($smarty.get.filter)}&filter={$smarty.get.filter}{/if}&country='+this.value">
 							<option value="all"{if !empty($smarty.get.country) && $smarty.get.country == 'all'} selected{/if}>все</option>
 							<option value="0"{if isset($smarty.get.country) && $smarty.get.country == 0} selected{/if}>без страны</option>
-				
+
 						{if !empty($team_country_list_ne)}
 						{foreach key=key item=item from=$team_country_list_ne name=tcl}
 							<option value="{$item.cn_id}"{if !empty($smarty.get.country) && $smarty.get.country == $item.cn_id} selected{/if}>{$item.cn_title_ru}</option>
@@ -68,7 +70,29 @@
 			{/if}
 			</table>
 			<br>
-		
+
+		<script>
+		function filterTeams() {
+			var input = document.getElementById('team_search');
+			var filter = input.value.toLowerCase();
+			var table = document.getElementById('teams_table');
+			var rows = table.getElementsByTagName('tr');
+
+			// Пропускаем первую строку (с фильтрами)
+			for (var i = 1; i < rows.length; i++) {
+				var row = rows[i];
+				var cells = row.getElementsByTagName('td');
+				if (cells.length > 0) {
+					var teamName = cells[0].textContent || cells[0].innerText;
+					if (teamName.toLowerCase().indexOf(filter) > -1) {
+						row.style.display = '';
+					} else {
+						row.style.display = 'none';
+					}
+				}
+			}
+		}
+		</script>
 	{/if}
 	{if !empty($smarty.get.get) && $smarty.get.get == 'add'}
 		<h1>Добавить команду</h1>
